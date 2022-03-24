@@ -2,7 +2,8 @@ class Vehiculo {
     constructor({
         ruedas,
         marcaDestino,
-        carroceria
+        carroceria,
+        tipoDeAuto,
     }){
         const modeloVehiculo = ()=> {
             switch (this.ruedas) {
@@ -30,13 +31,16 @@ class Vehiculo {
             let costo;
             let base = 5000;
 
+            
+         
             if (this.carroceria == "chica") costo = base * 2 + 5000;
 
             else if (this.carroceria == "mediana") costo = base ** 2 + 850000;
 
-            else if (this.carroceria == "grande") costo = (base ** 2 + 850000) * 5 + 180000;
-            
-
+            else if (this.carroceria == "grande") {
+                if (this.tipoDeAuto == "alta gama") {base += 70000}    
+                costo = (base ** 2 + 850000) * 5 + 180000;
+            }
             return costo;
         }
 
@@ -49,6 +53,7 @@ class Vehiculo {
         this.encendido = false;
         this.velocidad = 0;
         this.luces = false;
+        this.tipoDeAuto = tipoDeAuto;
 
     };
 
@@ -102,39 +107,32 @@ class Vehiculo {
         return "Sus luces ya se encuentran apagadas";
     }
 
-
+    
     presentarVehiculo(){
 
-        document.write(`
-        Vehiculo seleccionado: <b>${this.tipo}</b><br>
-        Marca: <b>${this.marcaDestino}</b><br> 
-        Carroceria: <b>${this.carroceria}</b><br> 
-        Numero de ruedas: <b>${this.ruedas}</b><br>
-        Numero de puertas: <b>${this.puertas}</b><br>
-        `);
+        if (this.tipoDeAuto == "alta gama") {
+
+            document.write(`
+            Modelo seleccionado: <b>${this.tipo}</b><br>
+            Marca: <b>${this.marcaDestino}</b><br> 
+            Tipo de Carroceria: <b>${this.carroceria}</b><br> 
+            Numero de ruedas: <b>${this.ruedas}</b><br>
+            Numero de puertas: <b>${this.puertas}</b><br>
+            `);
+
+        } else {
+         
+            document.write(`
+            Modelo seleccionado: <b>${this.tipo}</b><br>
+            Marca: <b>${this.marcaDestino}</b><br> 
+            Tipo de Carroceria: <b>${this.carroceria}</b><br> 
+            Numero de ruedas: <b>${this.ruedas}</b><br>
+            Numero de puertas: <b>${this.puertas}</b><br>
+            `);
+        }   
     }
-}
+}  
 
-const moto = new Vehiculo({ruedas: 2, carroceria: "mediana", marcaDestino: "BW"});
+const auto = new Vehiculo ({ruedas: 4, carroceria : "grande", marcaDestino : "Audi", tipoDeAuto : "normal"})
 
-
-// Example starter JavaScript for disabling form submissions if there are invalid fields
-(function () {
-    'use strict'
-  
-    // Fetch all the forms we want to apply custom Bootstrap validation styles to
-    var forms = document.querySelectorAll('.needs-validation')
-  
-    // Loop over them and prevent submission
-    Array.prototype.slice.call(forms)
-      .forEach(function (form) {
-        form.addEventListener('submit', function (event) {
-          if (!form.checkValidity()) {
-            event.preventDefault()
-            event.stopPropagation()
-          }
-  
-          form.classList.add('was-validated')
-        }, false)
-      })
-  })()
+const gama = new Vehiculo({ruedas: 4, carroceria : "grande", marcaDestino : "Audi", tipoDeAuto : "alta gama"})
